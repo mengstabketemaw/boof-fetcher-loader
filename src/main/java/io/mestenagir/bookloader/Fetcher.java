@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.Locale;
 
 public class Fetcher {
-    private final FileWriter fileWriter = new FileWriter("books.json",true);
+    private final FileWriter fileWriter = new FileWriter("books.txt",true);
     private final PrintWriter printWriter = new PrintWriter(fileWriter);
     public Fetcher() throws IOException {
     }
@@ -33,7 +33,7 @@ public class Fetcher {
             else if(name.endsWith("pdf")){
                 //here we write the file to the text file
                 print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
-                printWriter.printf("\n {\n\"address\" : \"%s\", \n\"name\" : \"%s\",\n\"category\": \"%s\" \n },\n",link.attr("abs:href"),trim(link.text(), 35),catagory);
+                printWriter.printf("{\"address\" : \"%s\",\"name\" : \"%s\",\"category\": \"%s\"}\n",link.attr("abs:href"),trim(link.text(), 35),catagory);
             }
         }
     }

@@ -1,5 +1,7 @@
 package io.mestenagir.bookloader;
 import io.mestenagir.bookloader.connection.DataStaxAstraProperties;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
@@ -30,7 +32,7 @@ public class BoofFetcherAndLoaderApplication {
 
 	@PostConstruct
 	public void fetchingData(){
-//		initFetchData(); // fetch the all the book name.
+		initFetchData(); // fetch the all the book name.
 //		initAddData(); //add each books in to the database.
 	}
 
@@ -44,7 +46,7 @@ public class BoofFetcherAndLoaderApplication {
 	}
 
 	private void initAddData() {
-
+		//here we read each line and add each object to the book.
 	}
 
 }

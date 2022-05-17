@@ -1,14 +1,15 @@
-data:
-  cassandra:
-    keyspace-name: main
-    username: FBuqDMMcafBZvqFsRugvPjtr
-    password: We2_b8M6d-7huCqDnANw4,uiQ-dLaFx35Zz54suK8Y4g.cIgzkYqdK88NBkvD9PWeieRSQUokFRP1q_aA7y4iM4qguZ,5wPoEL,GxrtkBBfgr8ohsu6bp-gn8u7mhyTL
-    schema-action: create-if-not-exists
-    request:
-      timeout: 10s
-    connection:
-      connect-timeout: 10s
-      init-query-timeout: 10s
+spring:
+  data:
+    cassandra:
+      keyspace-name: main
+      username: FBuqDMMcafBZvqFsRugvPjtr
+      password: We2_b8M6d-7huCqDnANw4,uiQ-dLaFx35Zz54suK8Y4g.cIgzkYqdK88NBkvD9PWeieRSQUokFRP1q_aA7y4iM4qguZ,5wPoEL,GxrtkBBfgr8ohsu6bp-gn8u7mhyTL
+      schema-action: create-if-not-exists
+      request:
+        timeout: 10s
+      connection:
+        connect-timeout: 10s
+        init-query-timeout: 10s
 
 datastax.astra:
     secure-connect-bundle: secure-connect.zip
