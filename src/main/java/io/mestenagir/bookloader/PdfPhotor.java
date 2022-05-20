@@ -10,6 +10,8 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 
 public class PdfPhotor {
     public static void saveImageOfPdf(String url,String name) {
+        System.out.println("=======================================================");
+        System.out.println("taking picture of the file "+name);
         String fileName = name.replace(".pdf","");
         try {
             String destinationDir = "C:\\Users\\Ketemaw\\Desktop\\boof-fetcher-and-loader\\src\\main\\resources\\images\\"; // converted images from pdf document are saved here
@@ -18,7 +20,6 @@ public class PdfPhotor {
                 destinationFile.mkdir();
                 System.out.println("Folder Created -> " + destinationFile.getAbsolutePath());
             }
-            System.out.println("Images copied to Folder Location: " + destinationFile.getAbsolutePath());
             InputStream is = new URL(url).openStream();
             PDDocument document = PDDocument.load(is);
             PDFRenderer pdfRenderer = new PDFRenderer(document);
