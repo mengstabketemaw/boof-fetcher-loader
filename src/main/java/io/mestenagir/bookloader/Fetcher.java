@@ -8,12 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Fetcher {
-    private final FileWriter fileWriter = new FileWriter("books.json",true);
-<<<<<<< HEAD
-=======
-
+    private final FileWriter fileWriter = new FileWriter("books",true);
     private  int counter = 0;
->>>>>>> dd59682e40225cd0c0565c002582066ab7fdf6a8
     private final PrintWriter printWriter = new PrintWriter(fileWriter);
     public Fetcher() throws IOException {
     }
@@ -35,11 +31,7 @@ public class Fetcher {
             else if(name.endsWith("pdf")){
                 //here we write the file to the text file
                 print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
-<<<<<<< HEAD
-                printWriter.printf("{\"address\" : \"%s\",\"name\" : \"%s\",\"category\": \"%s\"},\n",link.attr("abs:href"),trim(link.text(), 35),catagory);
-=======
-                printWriter.printf("{\"id\" : \"%d\",\"address\" : \"%s\",\"name\" : \"%s\",\"category\": \"%s\"},\n",counter++,link.attr("abs:href"),trim(link.text(), 35),catagory);
->>>>>>> dd59682e40225cd0c0565c002582066ab7fdf6a8
+                printWriter.printf("{\"id\" : \"%d\",\"address\" : \"%s\",\"name\" : \"%s\",\"category\": \"%s\"}\n",counter++,link.attr("abs:href"),trim(link.text(), 35),catagory);
                 printWriter.flush();
             }
         }

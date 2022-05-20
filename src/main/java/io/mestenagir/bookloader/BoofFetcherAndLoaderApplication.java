@@ -1,11 +1,4 @@
 package io.mestenagir.bookloader;
-<<<<<<< HEAD
-import java.io.IOException;
-
-public class BoofFetcherAndLoaderApplication {
-
-	public static void main(String[] args) throws IOException {
-=======
 //import io.mestenagir.bookloader.connection.DataStaxAstraProperties;
 //import org.json.JSONArray;
 //import org.json.JSONObject;
@@ -25,21 +18,15 @@ public class BoofFetcherAndLoaderApplication {
 
 	public static void main(String[] args) throws IOException {
 //		SpringApplication.run(BoofFetcherAndLoaderApplication.class, args);
->>>>>>> dd59682e40225cd0c0565c002582066ab7fdf6a8
-		try {
-			Fetcher fetcher = new Fetcher();
-			fetcher.getPdfsAndWriteToFile("http://www.ethiopianorthodox.org/amharic/");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Fetcher fetcher = new Fetcher();
+//			fetcher.getPdfsAndWriteToFile("http://www.ethiopianorthodox.org/amharic/");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		PdfPhotor.saveImageOfPdf("http://www.ethiopianorthodox.org/amharic/Magazines/Felege%20tibebe/01%20felege%20tibebe.pdf","01 felege tibebe");
 	}
-	/**
-	 * This is necessary to have the Spring Boot app use the Astra secure bundle
-	 * to connect to the database
-	 */
 
-<<<<<<< HEAD
-=======
 //	@Bean
 //	public CqlSessionBuilderCustomizer sessionBuilderCustomizer(DataStaxAstraProperties astraProperties) {
 //		Path bundle = astraProperties.getSecureConnectBundle().toPath();
@@ -59,6 +46,4 @@ public class BoofFetcherAndLoaderApplication {
 //	private void initAddData() {
 //		//here we read each line and add each object to the book.
 //	}
-
->>>>>>> dd59682e40225cd0c0565c002582066ab7fdf6a8
 }
