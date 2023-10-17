@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Fetcher {
-    private final FileWriter fileWriter = new FileWriter("books",true);
+    private final FileWriter fileWriter = new FileWriter("books_fre.json",true);
     private  int counter = 0;
     private final PrintWriter printWriter = new PrintWriter(fileWriter);
     public Fetcher() throws IOException {
