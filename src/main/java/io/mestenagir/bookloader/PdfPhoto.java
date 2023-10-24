@@ -2,6 +2,8 @@ package io.mestenagir.bookloader;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 public class PdfPhoto {
     Logger logger = Logger.getLogger("PDF to Pic");
     public void saveImageOfPdf(Book[] books) {
-        DataStaxAstraProperties data = new DataStaxAstraProperties();
+//        DataStaxAstraProperties data = new DataStaxAstraProperties();
 
         for(Book book : books){
             try {
@@ -35,7 +37,7 @@ public class PdfPhoto {
                 String lang = book.getLang();
                 String imageName = (category + name + lang).replace(" ","_");
 
-                ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
+//                ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
 
 /*                BufferedImage cover = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);
                 ImageIO.write(cover,"PNG", byteArrayStream);
@@ -44,11 +46,18 @@ public class PdfPhoto {
 
                 for (int page = 0; page < Math.min(10, document.getNumberOfPages()); page++) {
                     logger.info(String.format("Image writing for book (%s) STARTED-> page %d",book.getId(), page));
-                    BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.BINARY);
-//                    ImageIO.write(bim, "PNG", new File(imageName + "_page_" + (page + 1) + ".png"));
-                    ImageIO.write(bim, "PNG", byteArrayStream);
-                    ByteBuffer buffer = ByteBuffer.wrap(byteArrayStream.toByteArray());
-                    data.uploadPhotos(buffer, book.getId());
+                    BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
+                    String imageFileName = imageName + "_page_" + (page + 1) + ".png";
+
+                    try (FileOutputStream fos = new FileOutputStream(new File(imageFileName))) {
+                        ImageIO.write(bim, "PNG", fos);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        // Handle the exception, e.g., by logging or throwing it.
+                    }
+//                    ImageIO.write(bim, "PNG", byteArrayStream);
+//                    ByteBuffer buffer = ByteBuffer.wrap(byteArrayStream.toByteArray());
+//                    data.uploadPhotos(buffer, book.getId());
 
                     logger.info(String.format("Image writing for book (%s) DONE-> page %d",book.getId(), page));
                 }
