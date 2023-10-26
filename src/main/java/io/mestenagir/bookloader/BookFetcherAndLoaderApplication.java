@@ -1,25 +1,27 @@
 package io.mestenagir.bookloader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.mestenagir.bookloader.connection.DataStaxAstraProperties;
 import io.mestenagir.bookloader.model.Book;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class BookFetcherAndLoaderApplication {
 
 	public static void main(String[] args) throws IOException {
-//	initFetchData();
-	initPhotoShooting();
-//	new DataStaxAstraProperties();
-//	initPhotoUploading();
+
+		//	initFetchData();
+		//	initPhotoShooting();
+		//	new DataStaxAstraProperties();
+			initPhotoUploading();
 	}
 
 	private static void initPhotoUploading() {
 		PhotoUploader photoUploader = new PhotoUploader();
-		photoUploader.uploadPhotos();
+		photoUploader.startUploading();
 	}
 
 	public static void  initFetchData(){
@@ -35,20 +37,9 @@ public class BookFetcherAndLoaderApplication {
 		ObjectMapper mapper = new ObjectMapper();
 		PdfPhoto pdfToPhoto = new PdfPhoto();
 		try {
-			FileReader file = new FileReader("done.json");
+			FileReader file = new FileReader("notSaved.json");
 			Book[] books = mapper.readValue(file, Book[].class);
-			ArrayList<Book> saved = new ArrayList<>(), notSaved = new ArrayList<>();
-			for (Book book : books) {
-				if(book.getName().contains("..>")){
-					book.setName(book.getName().replace("..>",""));
-					notSaved.add(book);
-				} else
-					saved.add(book);
-			}
-
-			mapper.writeValue(new FileWriter("saved.json",false), saved);
-			mapper.writeValue(new FileWriter("notSaved.json",false), notSaved);
-
+			pdfToPhoto.saveImageOfPdf(books);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
