@@ -3,12 +3,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.mestenagir.bookloader.connection.DataStaxAstraProperties;
 import io.mestenagir.bookloader.model.Book;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -56,6 +55,36 @@ public class PdfPhoto {
                 e.printStackTrace();
             }
         log.close();
+        }
+    }
+
+    public void sameImageOfPdfFromDisk() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Book[] books = mapper.readValue(new File("BookWithNoImage1.json"), Book[].class);
+        File bookDirectory = new File("Compressed/RepairedPDF");
+        for (File pdf : bookDirectory.listFiles()) {
+            try (PDDocument pdDocument = PDDocument.load(pdf)) {
+                PDFRenderer renderer = new PDFRenderer(pdDocument);
+                String key = pdf.getName().replace(".pdf", "");
+                Book book = Arrays.stream(books)
+                        .filter(b -> {
+                            return Objects.equals(b.getName(), key);
+                        })
+                        .findAny()
+                        .get();
+
+                String category = book.getCategory().replace("/", "_");
+                String name = book.getName().replace(".pdf","_");
+                String lang = book.getLang();
+                String imageName = (category + name + lang).replace(" ","_");
+
+                for(int i=0; i<Math.min(pdDocument.getNumberOfPages(), 10); i++){
+                    BufferedImage bufferedImage = renderer.renderImageWithDPI(i, 300, ImageType.RGB);
+                    ImageIO.write(bufferedImage,"PNG",new File(imageName+ "_page_" + (i + 1) + ".png"));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }

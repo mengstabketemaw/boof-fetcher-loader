@@ -3,6 +3,9 @@ package io.mestenagir.bookloader.model;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Book {
     String id;
@@ -10,6 +13,7 @@ public class Book {
     String name;
     String category;
     String lang;
+    List<String> pages = new ArrayList<>();
 
     @Override
     public String toString() {
